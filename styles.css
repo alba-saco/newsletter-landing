@@ -1,0 +1,103 @@
+:root {
+    --bg: #ffffff;
+    --text: #141414;
+    --muted: #4b4b4b;
+    --border: #e8e8e8;
+  }
+  
+  * { box-sizing: border-box; }
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+  }
+  
+  body {
+    font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    line-height: 1.45;
+  }
+  
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 72px 20px 40px;
+  }
+  
+  .header h1 {
+    font-size: 44px;
+    font-weight: 600;
+    margin: 0 0 14px;
+    letter-spacing: -0.02em;
+  }
+  
+  .subhead {
+    margin: 0;
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 60ch;
+  }
+  
+  .card {
+    margin-top: 30px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+  
+  .form { margin: 0; }
+  
+  .label {
+    display: block;
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  
+  .row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .input {
+    flex: 1;
+    font-size: 16px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    outline: none;
+  }
+  
+  .input:focus {
+    border-color: #cfcfcf;
+  }
+  
+  .button {
+    font-size: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: #f6f6f6;
+    cursor: pointer;
+  }
+  
+  .button:hover { background: #f1f1f1; }
+  
+  .fineprint {
+    margin: 12px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  
+  .status {
+    margin: 10px 0 0;
+    font-size: 14px;
+  }
+  
+  .footer {
+    margin-top: 40px;
+    color: var(--muted);
+    font-size: 13px;
+  }
