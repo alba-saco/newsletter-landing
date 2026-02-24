@@ -5,20 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alba — Letters</title>
     <meta name="description" content="A lunar-cycle letter about where I am and what I'm up to." />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- Corner images -->
+    <img class="sticker sticker--1" src="img1.jpg" alt="" aria-hidden="true" />
+    <img class="sticker sticker--2" src="img2.jpg" alt="" aria-hidden="true" />
+    <img class="sticker sticker--3" src="img3.jpg" alt="" aria-hidden="true" />
+    <img class="sticker sticker--4" src="img4.jpg" alt="" aria-hidden="true" />
+
     <main class="wrap">
       <header class="header">
-        <h1>Alba</h1>
-        <p class="subhead">
-          A lunar-cycle letter about where I am, what I’m building, and what I’m noticing.
-          Mostly for friends. Anyone welcome.
-        </p>
+        <h1>Alba's Updates</h1>
+        <p class="subhead">Sign up for updates on my whereabouts and whatnots here:</p>
       </header>
 
       <section class="card" aria-label="Subscribe">
-        <!-- For now this is a placeholder. We'll wire it up next. -->
         <form class="form" action="#" method="post" onsubmit="return fakeSubmit(event)">
           <label class="label" for="email">Email</label>
           <div class="row">
@@ -29,34 +31,55 @@
               type="email"
               placeholder="you@domain.com"
               autocomplete="email"
+              inputmode="email"
               required
             />
-            <button class="button" type="submit">Subscribe</button>
+            <button class="button" type="submit">Add me!</button>
           </div>
-          <p class="fineprint">
-            You can reply directly to the letter. Unsubscribe anytime.
-          </p>
+          <p class="fineprint">You can reply directly to the email. Unsubscribe anytime :)</p>
           <p class="status" id="status" role="status" aria-live="polite"></p>
         </form>
       </section>
 
       <footer class="footer">
-        <p>© <span id="year"></span> Alba</p>
+        <p>© <span id="year"></span> n0talba</p>
       </footer>
     </main>
 
     <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-
-      // Placeholder so you can deploy now without backend:
-      function fakeSubmit(e) {
-        e.preventDefault();
-        const email = document.getElementById("email").value.trim();
-        const status = document.getElementById("status");
-        status.textContent = email ? `Thanks — you’re on the list: ${email}` : "Enter an email.";
-        e.target.reset();
-        return false;
-      }
-    </script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+      
+        async function fakeSubmit(e) {
+          e.preventDefault();
+          const emailInput = document.getElementById("email");
+          const status = document.getElementById("status");
+          const email = emailInput.value.trim();
+      
+          status.textContent = "adding you…";
+          status.classList?.add("show");
+      
+          try {
+            const resp = await fetch("/api/subscribe", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email }),
+            });
+      
+            const data = await resp.json().catch(() => ({}));
+      
+            if (!resp.ok) {
+              status.textContent = data.error || "hm, that didn’t work. try again?";
+              return false;
+            }
+      
+            status.textContent = "ok you're in <3";
+            e.target.reset();
+            return false;
+          } catch (err) {
+            status.textContent = "network issue — try again in a sec?";
+            return false;
+          }
+        }
+      </script>
   </body>
 </html>

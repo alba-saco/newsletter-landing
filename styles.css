@@ -1,9 +1,67 @@
 :root {
-    --bg: #ffffff;
-    --text: #141414;
-    --muted: #4b4b4b;
-    --border: #e8e8e8;
+    --bg: #AEC79D;
+    --text: #824800;
+    --muted: #82603D;
+    --border: #21401B;
+    --sticker-size: clamp(80px, 16vw, 140px);
   }
+
+/* Base sticker style */
+.sticker {
+    position: fixed;
+    width: var(--sticker-size);
+    height: auto;
+    z-index: 0;
+    opacity: 0.95;
+    pointer-events: none;
+    user-select: none;
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.15));
+  }
+  
+  /* Ensure main content sits above stickers */
+  .wrap, .card, .header, .footer {
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Desktop layout — 4 corners */
+  @media (min-width: 601px) {
+    :root {
+        --sticker-size: clamp(120px, 12vw, 170px);
+      }
+
+    .sticker--1 { top: 28px; left: 28px; }
+    .sticker--2 { top: 28px; right: 28px; }
+    .sticker--3 { bottom: 28px; left: 28px; }
+    .sticker--4 { bottom: 28px; right: 28px; }
+
+    .sticker--1 { transform: rotate(-2.5deg); }
+    .sticker--2 { transform: rotate(2deg); }
+    .sticker--3 { transform: rotate(1.5deg); }
+    .sticker--4 { transform: rotate(-2deg); }
+
+    .sticker {
+        outline: 2px solid rgba(255,255,255,0.35);
+        outline-offset: -2px;
+      }
+  
+    .wrap {
+        padding-top: calc(var(--sticker-size) + 34px);
+        padding-left: calc(var(--sticker-size) + 34px);
+        padding-right: 28px;
+        padding-bottom: 96px;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+    .card {
+        max-width: 720px;
+      }
+
+    .button { flex: 0 0 auto; }
+
+  }
+
   
   * { box-sizing: border-box; }
   
@@ -17,12 +75,6 @@
   body {
     font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
     line-height: 1.45;
-  }
-  
-  .wrap {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 72px 20px 40px;
   }
   
   .header h1 {
@@ -42,8 +94,8 @@
   .card {
     margin-top: 30px;
     padding: 18px;
-    border: 1px solid var(--border);
-    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 0;
   }
   
   .form { margin: 0; }
@@ -66,7 +118,7 @@
     font-size: 16px;
     padding: 12px 14px;
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 0;
     outline: none;
   }
   
@@ -77,9 +129,9 @@
   .button {
     font-size: 16px;
     padding: 12px 14px;
-    border-radius: 12px;
+    border-radius: 8px;
     border: 1px solid var(--border);
-    background: #f6f6f6;
+    background: #BABDB9;
     cursor: pointer;
   }
   
@@ -100,4 +152,40 @@
     margin-top: 40px;
     color: var(--muted);
     font-size: 13px;
+  }
+
+  .status {
+    margin: 10px 0 0;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+  
+  .status.show {
+    opacity: 1;
+  }
+
+  @media (max-width: 600px) {
+    .sticker--1 {
+        position: static;
+        display: block;
+        margin: 18px auto 4px;   /* ↑ more space above, tight below */
+        width: min(165px, 48vw); /* slightly smaller */
+        height: auto;
+        transform: none;
+    }
+  
+    .header h1 {
+      margin: 0 0 8px;
+    }
+  
+    .wrap {
+        padding: 0 20px 140px; 
+    }
+  
+    .sticker--2,
+    .sticker--3,
+    .sticker--4 {
+        display: none;
+    }
   }
